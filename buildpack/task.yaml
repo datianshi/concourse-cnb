@@ -23,4 +23,4 @@ outputs:
   - name: platform
 run:
   user: root
-  path: pipeline/task.sh  
+  path: pipeline/buildpack/task.sh  
