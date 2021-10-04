@@ -1,0 +1,26 @@
+---
+platform: linux
+
+image_resource:
+  type: registry-image
+  source: 
+    repository: paketobuildpacks/builder
+    tag: base
+params:
+  APP_IMAGE:
+  RUN_IMAGE: "gcr.io/paketo-buildpacks/run:base-cnb"
+  DOCKER_USERNAME:
+  DOCKER_PASSWORD:
+  CNB_PLATFORM_API: 0.4
+  SKIP_RESTORE: "false"
+caches:
+- path: cache  
+inputs:
+  - name: pipeline
+  - name: source
+outputs:
+  - name: layers  
+  - name: platform
+run:
+  user: root
+  path: pipeline/task.sh  
