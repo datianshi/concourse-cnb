@@ -18,6 +18,7 @@ caches:
 inputs:
   - name: pipeline
   - name: source
+  - name: version
 run:
   user: root
   path: pipeline/buildpack/task.sh  
