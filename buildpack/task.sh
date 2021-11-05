@@ -9,8 +9,6 @@ for path in "$PWD/cache" "/layers" "/platform" "/source"; do
     chown -R "1000:1000" "$path"
 done
 
-VERSION=$(cat version/version)
-
 
 CACHE_DIR=$PWD/cache
 CACHE_IMAGE=${APP_IMAGE}-cache
@@ -27,5 +25,6 @@ export CNB_REGISTRY_AUTH="{\"index.docker.io\": \"Basic $(echo -n "${DOCKER_USER
     -process-type=web \
     -skip-restore=${SKIP_RESTORE} \
     -run-image=${RUN_IMAGE} \
-    -tag=${APP_IMAGE}:${VERSION} \
     ${APP_IMAGE}
+
+cat /layers/report.toml | grep "digest" | cut -d'"' -f2 | cut -d'"' -f2 | tr -d '\n' | tee image/digest
