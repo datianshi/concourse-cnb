@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 mkdir -p /layers 
 mkdir -p /platform
 cp -r source /
