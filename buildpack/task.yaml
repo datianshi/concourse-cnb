@@ -13,7 +13,7 @@ params:
   DOCKER_PASSWORD:
   CNB_PLATFORM_API: 0.4
   SKIP_RESTORE: "false"
-  BP_KEEP_FILES:
+  BUILD_ENV_BP_KEEP_FILES:
 caches:
 - path: cache  
 inputs:
