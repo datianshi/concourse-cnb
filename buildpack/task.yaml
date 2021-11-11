@@ -9,8 +9,9 @@ image_resource:
 params:
   APP_IMAGE:
   RUN_IMAGE: "gcr.io/paketo-buildpacks/run:base-cnb"
-  DOCKER_USERNAME:
-  DOCKER_PASSWORD:
+  IMAGE_REPO: index.docker.io
+  IMAGE_REPO_USERNAME:
+  IMAGE_REPO_PASSWORD:
   CNB_PLATFORM_API: 0.4
   SKIP_RESTORE: "false"
   BUILD_ENV_BP_KEEP_FILES:
