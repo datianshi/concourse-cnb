@@ -1,15 +1,17 @@
 # concourse-cnb
 
 This concourse task is to leverage [cloud native buildpack](https://buildpacks.io/) to build image from source to image
+
 It references the [teckton cloud native buildpack](https://github.com/tektoncd/catalog/tree/main/task/buildpacks) implementation
 
 ## input
 
     ```
         APP_IMAGE: # Application image registry
-        RUN_IMAGE: # build pack run image
-        DOCKER_USERNAME: # dockerhub username
-        DOCKER_PASSWORD: # dockerhub password
+        RUN_IMAGE: # build pack run image. default: gcr.io/paketo-buildpacks/run:base-cnb
+        IMAGE_REPO: # default: index.docker.io
+        IMAGE_REPO_USERNAME: # e.g. dockerhub username
+        IMAGE_REPO_PASSWORD: # e.g. dockerhub password
         BUILD_ENV_BP_KEEP_FILES: # keep cetain artifacts in the run workspace
     ```
 
