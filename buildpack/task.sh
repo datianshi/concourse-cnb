@@ -15,31 +15,17 @@ done
 CACHE_DIR=$PWD/cache
 CACHE_IMAGE=${APP_IMAGE}-cache
 
-#processing environment variable
 
-echo "> Processing any environment variables..."
-ENV_DIR="/platform/env"
-echo "--> Creating 'env' directory: $ENV_DIR"
-mkdir -p "$ENV_DIR"
+# Copy env
+if [ -d "env" ]
+then
+  cp -r env /platform/
+fi
 
-build_env=()
-
-while IFS='=' read -r name value ; do
-  if [[ $name == *'BUILD_ENV'* ]]; then
-    #echo "$name" ${!name}
-    key=${name#"BUILD_ENV_"}
-    build_env+=("$key=$value")
-  fi
-done < <(env)
-
-for env in "${build_env[@]}"; do
-    IFS='=' read -r key value string <<< "$env"
-    if [[ "$key" != "" && "$value" != "" ]]; then
-        path="${ENV_DIR}/${key}"
-        echo "--> Writing ${path}..."
-        echo -n "$value" > "$path"
-    fi
-done
+if [ -d "bindings" ]
+then
+  cp -r bindings /platform/
+fi
 
 export CNB_REGISTRY_AUTH="{\"${IMAGE_REPO}\": \"Basic $(echo -n "${IMAGE_REPO_USERNAME}:${IMAGE_REPO_PASSWORD}" | base64)\"}"
 /cnb/lifecycle/creator -app=/source \
