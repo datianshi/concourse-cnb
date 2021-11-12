@@ -11,12 +11,6 @@ import (
 var result string = `
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
-  <repositories>
-    <repository>
-      <id>buildpack_maven_repo</id>
-      <url>https://maven.example.com</url>
-    </repository>
-  </repositories>
   <servers>
     <server>
       <id>buildpack_maven_repo</id>
@@ -33,14 +27,14 @@ var _ = Describe("Settings", func() {
 	var (
 		username string
 		password string
-		repo     string
+		repoId   string
 		settings maven.Settings
 	)
 	BeforeEach(func() {
 		username = "test-account"
 		password = "test-password"
-		repo = "https://maven.example.com"
-		settings = *maven.NewSettings(username, password, repo)
+		repoId = "buildpack_maven_repo"
+		settings = *maven.NewSettings(username, password, repoId)
 	})
 
 	It("Should generate correct setting content", func() {

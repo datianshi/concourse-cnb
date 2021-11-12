@@ -15,7 +15,7 @@ func init() {
 	mavenSettingsCmd.MarkFlagRequired("username")
 	mavenSettingsCmd.Flags().StringVarP(&password, "password", "p", "", "maven repo password")
 	mavenSettingsCmd.MarkFlagRequired("password")
-	mavenSettingsCmd.Flags().StringVarP(&repo, "repo", "r", "", "maven repo url")
+	mavenSettingsCmd.Flags().StringVarP(&repo, "repo", "r", "", "maven repo id")
 	mavenSettingsCmd.MarkFlagRequired("repo")
 }
 

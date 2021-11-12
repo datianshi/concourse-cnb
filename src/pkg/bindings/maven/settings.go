@@ -9,21 +9,15 @@ import (
 type Settings struct {
 	username string
 	password string
-	repo     string
+	repoId   string
 }
 
 const settingsTemplate = `
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
-  <repositories>
-    <repository>
-      <id>buildpack_maven_repo</id>
-      <url>{{.Repo}}</url>
-    </repository>
-  </repositories>
   <servers>
     <server>
-      <id>buildpack_maven_repo</id>
+      <id>{{.RepoId}}</id>
       <username>{{.Username}}</username>
       <password>{{.Password}}</password>
       <configuration></configuration>
@@ -36,7 +30,7 @@ func NewSettings(username, password, repo string) *Settings {
 	return &Settings{
 		username: username,
 		password: password,
-		repo:     repo,
+		repoId:   repo,
 	}
 }
 
@@ -50,11 +44,11 @@ func (s *Settings) GenerateContent() (io.Reader, error) {
 	c := struct {
 		Username string
 		Password string
-		Repo     string
+		RepoId   string
 	}{
 		Username: s.username,
 		Password: s.password,
-		Repo:     s.repo,
+		RepoId:   s.repoId,
 	}
 	if err = tmpl.Execute(b, c); err != nil {
 		return nil, err
