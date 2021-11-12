@@ -14,12 +14,15 @@ params:
   IMAGE_REPO_PASSWORD:
   CNB_PLATFORM_API: 0.4
   SKIP_RESTORE: "false"
-  BUILD_ENV_BP_KEEP_FILES:
 caches:
 - path: cache  
 inputs:
   - name: pipeline
   - name: source
+  - name: env
+    optional: true
+  - name: bindings
+    optional: true    
 outputs:
   - name: image  
 run:
