@@ -13,6 +13,7 @@ func init() {
 	BindingsCmd.MarkFlagRequired("bindingType")
 	BindingsCmd.PersistentFlags().StringVarP(&output, "output", "o", "bindings", "output folder")
 	BindingsCmd.AddCommand(mavenSettingsCmd)
+	BindingsCmd.AddCommand(datadogCmd)
 }
 
 var BindingsCmd = &cobra.Command{
