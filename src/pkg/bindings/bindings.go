@@ -56,7 +56,9 @@ func (b *Binding) CreateBinding() error {
 	}
 
 	//Write binding content
-
+	if b.content.Name() == "" {
+		return nil
+	}
 	if contentFile, err = os.OpenFile(fmt.Sprintf("%s/%s", bindingDir, b.content.Name()), os.O_TRUNC|os.O_CREATE|os.O_WRONLY, 0644); err != nil {
 		return err
 	}

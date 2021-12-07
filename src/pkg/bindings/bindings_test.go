@@ -20,40 +20,52 @@ var _ = Describe("Bindings", func() {
 		binding    bindings.Binding
 	)
 
-	BeforeEach(func() {
-		binding = *bindings.NewBinding("my-binding", "maven", bindingDir, content)
-		content.GenerateContentStub = func() (io.Reader, error) {
-			b := new(bytes.Buffer)
-			b.WriteString("This is binding content")
-			return b, nil
-		}
-		content.NameStub = func() string {
-			return "settings.xml"
-		}
+	Context("with content", func() {
+		BeforeEach(func() {
+			binding = *bindings.NewBinding("my-binding", "maven", bindingDir, content)
+			content.GenerateContentStub = func() (io.Reader, error) {
+				b := new(bytes.Buffer)
+				b.WriteString("This is binding content")
+				return b, nil
+			}
+			content.NameStub = func() string {
+				return "settings.xml"
+			}
+		})
+		It("Should generate correct file structure", func() {
+
+			err := binding.CreateBinding()
+			Ω(err).Should(BeNil())
+
+			//Binding name dir should be created
+			bindingNameDir := fmt.Sprintf("%s/%s", bindingDir, "my-binding")
+			_, err = os.Stat(bindingNameDir)
+			Ω(err).Should(BeNil())
+
+			//Should have a file type
+			bindingTypeFile := fmt.Sprintf("%s/%s", bindingNameDir, "type")
+			_, err = os.Stat(bindingTypeFile)
+			Ω(err).Should(BeNil())
+			c, _ := os.ReadFile(bindingTypeFile)
+			Ω("maven").Should(Equal(string(c)))
+
+			//The content should be generated
+			bindingContentFile := fmt.Sprintf("%s/%s", bindingNameDir, "settings.xml")
+			_, err = os.Stat(bindingContentFile)
+			Ω(err).Should(BeNil())
+			c, _ = os.ReadFile(bindingContentFile)
+			Ω("This is binding content").Should(Equal(string(c)))
+		})
 	})
-	It("Should generate correct file structure", func() {
 
-		err := binding.CreateBinding()
-		Ω(err).Should(BeNil())
+	Context("no content", func() {
+		BeforeEach(func() {
+			binding = *bindings.NewBinding("my-binding", "maven", bindingDir, &bindings.EmptyContent{})
+		})
 
-		//Binding name dir should be created
-		bindingNameDir := fmt.Sprintf("%s/%s", bindingDir, "my-binding")
-		_, err = os.Stat(bindingNameDir)
-		Ω(err).Should(BeNil())
-
-		//Should have a file type
-		bindingTypeFile := fmt.Sprintf("%s/%s", bindingNameDir, "type")
-		_, err = os.Stat(bindingTypeFile)
-		Ω(err).Should(BeNil())
-		c, _ := os.ReadFile(bindingTypeFile)
-		Ω("maven").Should(Equal(string(c)))
-
-		//The content should be generated
-		bindingContentFile := fmt.Sprintf("%s/%s", bindingNameDir, "settings.xml")
-		_, err = os.Stat(bindingContentFile)
-		Ω(err).Should(BeNil())
-		c, _ = os.ReadFile(bindingContentFile)
-		Ω("This is binding content").Should(Equal(string(c)))
+		It("Should not throw error", func() {
+			err := binding.CreateBinding()
+			Ω(err).Should(BeNil())
+		})
 	})
-
 })
