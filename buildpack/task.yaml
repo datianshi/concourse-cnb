@@ -5,13 +5,14 @@ image_resource:
   type: registry-image
   source: 
     repository: paketobuildpacks/builder
-    tag: base
+    tag: 0.1.225-base
 params:
   APP_IMAGE:
   RUN_IMAGE: "gcr.io/paketo-buildpacks/run:base-cnb"
   IMAGE_REPO: index.docker.io
   IMAGE_REPO_USERNAME:
   IMAGE_REPO_PASSWORD:
+  PROCESS_TYPE: web
   CNB_PLATFORM_API: 0.4
   SKIP_RESTORE: "false"
 caches:

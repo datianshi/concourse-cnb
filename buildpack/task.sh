@@ -36,7 +36,7 @@ export CNB_REGISTRY_AUTH="{\"${IMAGE_REPO}\": \"Basic $(echo -n "${IMAGE_REPO_US
     -layers=/layers \
     -platform=/platform \
     -report=/layers/report.toml \
-    -process-type=web \
+    -process-type=${PROCESS_TYPE} \
     -skip-restore=${SKIP_RESTORE} \
     -run-image=${RUN_IMAGE} \
     ${APP_IMAGE}
