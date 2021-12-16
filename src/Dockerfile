@@ -1,3 +1,5 @@
+
+# datianshi/cnb-config
 FROM golang:1.16
 WORKDIR /go/src/github.com/datianshi/concourse-cnb/config
 COPY . .
