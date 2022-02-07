@@ -9,7 +9,7 @@ image_resource:
 params:
   APP_IMAGE:
   RUN_IMAGE: "gcr.io/paketo-buildpacks/run:base-cnb"
-  IMAGE_REPO: index.docker.io
+  IMAGE_REPO:
   IMAGE_REPO_USERNAME:
   IMAGE_REPO_PASSWORD:
   PROCESS_TYPE: web

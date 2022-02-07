@@ -27,7 +27,7 @@ then
   cp -r bindings /platform/
 fi
 
-export CNB_REGISTRY_AUTH="{\"${IMAGE_REPO}\": \"Basic $(echo -n "${IMAGE_REPO_USERNAME}:${IMAGE_REPO_PASSWORD}" | base64)\"}"
+export CNB_REGISTRY_AUTH="{\"${IMAGE_REPO}\": \"Basic $(echo -n "${IMAGE_REPO_USERNAME}:${IMAGE_REPO_PASSWORD}" | base64 -w 0)\"}"
 /cnb/lifecycle/creator -app=/source \
     -cache-image=${CACHE_IMAGE} \
     -cache-dir=${CACHE_DIR} \
